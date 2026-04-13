@@ -223,7 +223,7 @@ jira-evidence-platform/
 ├── pyproject.toml
 ├── uv.lock
 └── README.md
-
+```
 ---
 
 ## 6. Package Management
@@ -288,7 +288,7 @@ It should not:
 Every request execution should create a unique run folder.
 
 Example:
-
+```
 output/evidence/2026-04-11_153045_onboarding_tickets/
 ├── tickets.csv
 ├── tickets.json
@@ -299,7 +299,7 @@ output/evidence/2026-04-11_153045_onboarding_tickets/
 │   └── offboarding_list.png
 ├── manifest.json
 └── logs.txt
-
+```
 Rules:
 
 never overwrite old runs
@@ -319,7 +319,7 @@ For each successful task, the system should return a structured result containin
 - artifact paths
 
 Example shape:
-
+```
 {
   "status": "success",
   "run_id": "2026-04-11_153045_onboarding_tickets",
@@ -347,7 +347,7 @@ Example shape:
   }
 }
 
-
+```
 
 ## 10. FastAPI Requirements
 
@@ -360,12 +360,15 @@ POST /tasks/jira/search
 Accepts natural language request and execution flags.
 
 Example:
+```
 
 {
   "prompt": "Get me the list of Jira tickets related to onboarding",
   "capture_screenshots": true,
   "export_csv": true
 }
+
+```
 GET /tasks/{run_id}
 
 Returns metadata for a previous run.
@@ -414,7 +417,7 @@ The design must respect enterprise authentication controls.
 The agent harness should convert user input into a structured task plan instead of relying on fragile free-form text parsing.
 
 Suggested internal model:
-
+```
 from pydantic import BaseModel
 from typing import List, Optional
 
@@ -427,7 +430,7 @@ class TaskPlan(BaseModel):
     capture_screenshots: bool = False
     expected_views: List[str] = []
     max_results: int = 100
-
+```
 The planner should be able to represent actions like:
 
 - query Jira
